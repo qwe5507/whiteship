@@ -26,13 +26,16 @@ public class dashboard {
 
             for (GHIssueComment comment : comments) {
                 String userName = comment.getUser().getName();
+                if (userName == null) {
+                    continue;
+                }
                 userMap.put(userName, userMap.getOrDefault(userName, 0.0) + 1);
             }
         }
 
         for (String userName : userMap.keySet()) {
             Double percent = (userMap.get(userName) / issues.size()) * 100;
-            System.out.printf("%s : %.2f ", userName, percent);
+            System.out.printf("%s : %.2f \n", userName, percent);
         }
 
     }
