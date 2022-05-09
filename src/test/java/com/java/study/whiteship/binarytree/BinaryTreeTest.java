@@ -2,6 +2,7 @@ package com.java.study.whiteship.binarytree;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@DisplayName("BinaryTree 클래스")
 class BinaryTreeTest {
     private static BinaryTree binaryTree;
 
@@ -31,42 +32,51 @@ class BinaryTreeTest {
         binaryTree = new BinaryTree(node0);
     }
 
-    @Test
-    @DisplayName("dfs 순회 성공")
-    void dfsTest() {
-        //given
-        Node root = binaryTree.getRoot();
-        List<Integer> list = new ArrayList<>();
+    @Nested
+    @DisplayName("dfs 테스트")
+    class testDfs {
+        @Test
+        @DisplayName(" 순회 성공")
+        void dfsTest() {
+            //given
+            Node root = binaryTree.getRoot();
+            List<Integer> list = new ArrayList<>();
 
-        //when
-        binaryTree.dfs(root, list);
+            //when
+            binaryTree.dfs(root, list);
 
-        //then
-        assertThat(list).isEqualTo(Arrays.asList(7, 3, 8, 1, 9, 4, 10, 0, 5, 2, 6));
+            //then
+            assertThat(list).isEqualTo(Arrays.asList(7, 3, 8, 1, 9, 4, 10, 0, 5, 2, 6));
+        }
     }
 
-    @Test
-    @DisplayName("bfs 순회 성공")
-    void bfsTest() {
-        //given
-        Node root = binaryTree.getRoot();
 
-        //when
-        List<Integer> result = binaryTree.bfs(root);
+    @Nested
+    @DisplayName("bfs 테스트")
+    class testBfs {
+        @Test
+        @DisplayName("순회 성공")
+        void bfsTest() {
+            //given
+            Node root = binaryTree.getRoot();
 
-        //then
-        assertThat(result).isEqualTo(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-    }
+            //when
+            List<Integer> result = binaryTree.bfs(root);
 
-    @Test
-    @DisplayName("bfs 노드 비어있을때")
-    void bfsTestFail() {
-        //given
-        Node root = null;
+            //then
+            assertThat(result).isEqualTo(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        }
 
-        //when
-        //then
-        assertThrows(NullPointerException.class, () -> binaryTree.bfs(root));
+        @Test
+        @DisplayName("노드 비어있을때는 예외를 던진다.")
+        void bfsTestFail() {
+            //given
+            Node root = null;
+
+            //when
+            //then
+            assertThrows(NullPointerException.class, () -> binaryTree.bfs(root));
+        }
     }
 
 
